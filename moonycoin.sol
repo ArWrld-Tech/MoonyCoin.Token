@@ -27,7 +27,7 @@ contract MoonyState is usingOraclize {
             newOraclizeQuery("Oraclize query was sent, standing by for the answer..");
             bytes32 rise = oraclize_query(60, "URL", "json(http://api.usno.navy.mil/rstt/oneday?date=today&coords=51.476825,-0.000514&tz=0).result.moondata.0.time");
             bytes32 set = oraclize_query(60, "URL", "json(http://api.usno.navy.mil/rstt/oneday?date=today&coords=51.476825,-0.000514&tz=0).result.moondata.2.time");
-            uint curHour = uint((now /(1000*60*60)) % 24);
+            uint curHour = uint(((now /(1000*60*60)) % 24) * 100);
             uint riseS = stringToUint(bytes32ToString(rise));
             uint setS = stringToUint(bytes32ToString(set));
             if(curHour > riseS && curHour < setS){
